@@ -1,28 +1,26 @@
-@if(artist) {
-	<div class="row">
-		<div class="col-xl-4 col-12">
-			<!--TODO: populate with artist name-->
-			<h1></h1>
-			<!--TODO: populate with artist image URL-->
-			<img id="artistImg" src="assets/unknown.jpg">
-			<p>
-				<!--TODO: link to artist page on spotify, display artist name-->
-				<a class="btn btn-light" role="button" target="_blank">Open ??? on Spotify</a>
-			</p>
-		</div>
-		<div class="col-xl-4 col-12">
-			<h3>Popularity</h3>
-			<!--TODO: display the number of followers, formatted with commas for thousands/millions-->
-			<p>??? followers</p>
-			<app-thermometer [popularity]="artist.popularity"></app-thermometer>
-			<!--TODO: display artist name-->
-			<h3>???'s Albums</h3>
-			<!--TODO: Display a carousel component for the artist's albums. Bind carousel's resources and give it a static carouselId.-->
-		</div>
-		<div class="col-xl-4 col-12">
-			<!--TODO: display artist name-->
-			<h3>???'s Top Tracks</h3>
-			<!--TODO: display the artist's top tracks-->
-		</div>
-	</div>
+@if (loading) { <p role="status">Loading artist...</p> }
+@if (error) { <p class="alert alert-danger" role="alert">{{ error }}</p> }
+@if (artist) {
+  <div class="row">
+    <div class="col-xl-4 col-12">
+      <h1>{{ artist.name }}</h1>
+      <img id="artistImg" class="img-fluid mw-100" [src]="artist.imageURL" [alt]="artist.name">
+      <p><a class="btn btn-light" [href]="artist.url" target="_blank" rel="noopener noreferrer">Open {{ artist.name }} on Spotify</a></p>
+    </div>
+    <div class="col-xl-4 col-12">
+      <h3>Popularity</h3>
+      <p>{{ artist.followers | number:'1.0-0':'en-US' }} followers</p>
+      <app-thermometer [popularity]="artist.popularity"></app-thermometer>
+      <h3>{{ artist.name }}'s Albums</h3>
+      @if (albums.length) {
+        <app-carousel [resources]="albums" carouselId="artist-albums"></app-carousel>
+      } @else {
+        <p>No albums available.</p>
+      }
+    </div>
+    <div class="col-xl-4 col-12">
+      <h3>{{ artist.name }}'s Top Tracks</h3>
+      <app-track-list [tracks]="topTracks"></app-track-list>
+    </div>
+  </div>
 }
