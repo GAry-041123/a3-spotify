@@ -2,7 +2,7 @@
 @if (loading) { <p role="status">Loading profile...</p> }
 @if (error) { <p class="alert alert-danger" role="alert">{{ error }}</p> }
 <h3>Logged in user: {{ name || 'Not loaded' }}</h3>
-<img [src]="profile_pic" [alt]="name ? name + ' profile photo' : 'Profile placeholder'" class="profile img-fluid">
+<img [src]="profile_pic" [alt]="name ? name + ' profile photo' : 'Profile placeholder'" class="profile img-fluid mw-100">
 @if (profile_link) {
   <p><a class="btn btn-light" [href]="profile_link" target="_blank" rel="noopener noreferrer">Open profile on Spotify</a></p>
 }
